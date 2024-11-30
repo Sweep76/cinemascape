@@ -1,0 +1,54 @@
+<p-toast key="main-toast"/>
+<h1 class="text-white font-semibold text-2xl">My Collection</h1>
+
+<div class="flex w-full my-4 justify-end gap-4 items-center">
+    <span class="text-slate-500 text-nowrap text-sm font-light">Favorite Movies</span>
+    <div class="h-[1px] w-full bg-gray-600"></div>
+    <button (click)="onAddMovie()" class="py-3 min-w-[180px] hover:bg-[#0eab68] transition-all bg-[#1BE28D] rounded-full text-sm font-semibold text-[#07140e] flex justify-center items-center gap-2">Add New Movie <span class="pi pi-plus"></span></button>
+</div>
+
+<p-dialog draggable="false" header="Add New Movie" [modal]="true" [(visible)]="visible" [style]="{ width: '26rem' }">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <div class="flex flex-col align-items-center gap-2 mb-4">
+            <label for="image" class="font-medium">Image</label>
+            <input type="file" id="image" (change)="onFileImageSelect($event)" />
+            <label for="video" class="font-medium">Video</label>
+            <input type="file" id="video" (change)="onFileVideoSelect($event)" />
+            <label for="title" class="font-medium">Title</label>
+            <input required id="title" class="border rounded px-2 py-1" autocomplete="off" formControlName="title"/>
+            @if (titleIsInvalid) {
+                <p class="text-sm font-light text-red-500">Please enter a valid title (at least 3 characters long)</p>
+            }
+            <label for="year-release" class="font-medium">Year Release</label>
+            <input required id="year-release" class="border rounded px-2 py-1" autocomplete="off" formControlName="yearRelease"/>
+            @if (yearReleaseIsInvalid) {
+                <p class="text-sm font-light text-red-500">Year Release is required!</p>
+            }
+            <label for="genre" class="font-medium">Genre</label>
+            <input required id="genre" class="border rounded px-2 py-1" autocomplete="off" formControlName="genre"/>
+            @if (genreIsInvalid) {
+                <p class="text-sm font-light text-red-500">Genre is required!</p>
+            }
+            <label for="country" class="font-medium">Country</label>
+            <input required id="country" class="border rounded px-2 py-1" autocomplete="off" formControlName="country"/>
+            @if (countryIsInvalid) {
+                <p class="text-sm font-light text-red-500">Country is required!</p>
+            }
+            <label for="description" class="font-medium">Description</label>
+            <textarea required rows="4" id="description" class="border rounded px-2 py-1" (resize)="false" autocomplete="off" formControlName="description"></textarea>
+            @if (descriptionIsInvalid) {
+                <p class="text-sm font-light text-red-500">Description is required!</p>
+            }
+        </div>
+        <div class="flex justify-content-end gap-2">
+            <button [ngClass]="form.controls.title.invalid || form.controls.description.invalid ? 'opacity-50' : ''" type="submit" class="bg-[#1BE28D] font-semibold hover:bg-[#0eab68] transition-all py-2 min-w-[100px] rounded text-white text-sm">Save</button>
+            <button type="button" class="hover:bg-red-400 text-sm font-semibold hover:text-white transition-all py-2 min-w-[100px] rounded text-black" (click)="visible = false">Cancel</button>
+        </div>
+    </form>
+</p-dialog>
+
+@if (isLoading) {
+    <p class="text-center text-white">Loading...</p>
+} @else {
+    <app-movies (movieReFetch)="onMovieReFetch()" [movies]="movies"/>
+}

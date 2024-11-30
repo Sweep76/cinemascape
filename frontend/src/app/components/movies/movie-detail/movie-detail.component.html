@@ -1,0 +1,40 @@
+<div class="px-60">
+    <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="text-white flex items-center gap-2 mb-4">
+        <span class="pi pi-arrow-left"></span>
+        Back
+    </a>
+    <div class="flex justify-center gap-10">
+        <img [src]="getMovieUrl()"  class="rounded h-[400px] w-[300px] border border-slate-300 object-fill"/>
+        <div class="space-y-6 w-[600px]">
+            <h1 class="text-4xl text-white font-semibold">{{movie?.title}}</h1>
+            <div class="flex items-center gap-4">
+                <div class="px-2 py-0.5 border rounded">
+                    <h1 class="text-white font-semibold">HD</h1>
+                </div>
+                <h1 class="text-yellow-400 text-sm">Rating: N/A</h1>
+                <p class="text-sm text-yellow-400">Date Added: {{formatDateCreated()}}</p>
+            </div>
+            <button (click)="onPlayMovie()" class="py-4 px-12 bg-[#0EAB68] rounded text-white font-semibold hover:bg-[#33d48a] transition-all">Watch {{movie?.title}}</button>
+            <div class="flex flex-col gap-4">
+                <h5 class="text-slate-200 mb-5">Overview:</h5>
+                <p class="text-slate-300 font-light text-sm ">{{movie?.description}}</p>
+            </div>
+            <div class="flex items-center gap-10">
+                <div class="flex flex-col gap-2">
+                    <h3 class="text-white text-sm font-medium">Year Release: <span class="text-sm font-light">{{movie?.year_release || 'N/A'}}</span></h3>
+                    <h3 class="text-white text-sm font-medium">Genre: <span class="text-sm font-light">{{movie?.genre || 'N/A'}}</span></h3>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <h3 class="text-white text-sm font-medium">Duration: <span class="text-sm font-light">N/A</span></h3>
+                    <h3 class="text-white text-sm font-medium">Country: <span class="text-sm font-light">{{movie?.country || 'N/A'}}</span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog draggable="false" [modal]="true" [(visible)]="visible" [style]="{ width: '100rem', height: '80rem'}">
+    <video class="w-full h-full rounded" controls autoplay>
+        <source [src]="movie?.video_url" type="video/mp4"/>
+    </video>
+</p-dialog>

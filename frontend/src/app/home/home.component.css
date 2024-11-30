@@ -1,0 +1,6 @@
+:host ::ng-deep .p-calendar { 
+    border: 1px solid gray; 
+    border-radius: 4px; 
+    width: 100%;
+    padding: 8px; 
+} 

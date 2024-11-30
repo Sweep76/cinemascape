@@ -1,0 +1,9 @@
+django
+djangorestframework
+django-cors-headers
+djangorestframework-simplejwt
+PyJWT
+cloudinary
+django-cloudinary-storage[video]
+pillow
+environs

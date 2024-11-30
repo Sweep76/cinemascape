@@ -1,0 +1,58 @@
+<p-menu #menu [model]="items" [popup]="true" class=""/>
+<div (mouseenter)="onMouseHover()" (mouseleave)="onMouseHover()" class="h-[350px] w-[250px] relative">
+    @if (isShow) {
+        <button  (click)="menu.toggle($event)"  class="cursor-pointer absolute bg-slate-100 py-1 px-2.5 rounded right-2 top-2 transition-all z-20">
+            <span class="pi pi-ellipsis-v"></span>
+        </button>
+        
+    }
+    <div (click)="onSelectMovie()" [ngStyle]="{'background-image': 'url(' + getMovieUrl() + ')'}" class="mb-2 bg-no-repeat bg-cover cursor-pointer h-full w-full bg-gradient-to-t from-slate-800 to-slate-700 shadow border border-slate-400 p-4 rounded transition-all relative">    
+    </div>
+    <div class="flex items-center gap-2">
+        <h1 class="text-base font-medium text-white ">
+            {{movie.title}} 
+        </h1>
+        <p class="h-1 w-1 bg-white rounded-full"></p>
+        <p class="text-sm text-slate-500">{{movie.year_release}}</p>
+    </div>
+</div>
+
+<p-dialog draggable="false" header="Edit Movie" [modal]="true" [(visible)]="visible" [style]="{ width: '26rem'}">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col align-items-center gap-2 mb-4">
+            <label for="image" class="font-medium">Image</label>
+            <input type="file" id="image" (change)="onFileImageSelect($event)" />
+            <label for="video" class="font-medium">Video</label>
+            <input type="file" id="video" (change)="onFileVideoSelect($event)" />
+            <label for="title" class="font-medium">Title</label>
+            <input required id="title" class="border rounded p-2" autocomplete="off" formControlName="title"/>
+            @if (titleIsInvalid) {
+                <p class="text-sm font-light text-red-500">Please enter a valid title (at least 3 characters long)</p>
+            }
+            <label for="year-release" class="font-medium">Year Release</label>
+            <input required id="year-release" class="border rounded p-2" autocomplete="off" formControlName="yearRelease"/>
+            @if (yearReleaseIsInvalid) {
+                <p class="text-sm font-light text-red-500">Year Release is required!</p>
+            }
+            <label for="genre" class="font-medium">Genre</label>
+            <input required id="genre" class="border rounded p-2" autocomplete="off" formControlName="genre"/>
+            @if (genreIsInvalid) {
+                <p class="text-sm font-light text-red-500">Genre is required!</p>
+            }
+            <label for="country" class="font-medium">Country</label>
+            <input required id="country" class="border rounded p-2" autocomplete="off" formControlName="country"/>
+            @if (countryIsInvalid) {
+                <p class="text-sm font-light text-red-500">Country is required!</p>
+            }
+            <label for="description" class="font-medium">Description</label>
+            <textarea required rows="4" id="description" class="border rounded p-2" (resize)="false" autocomplete="off" formControlName="description"></textarea>
+            @if (descriptionIsInvalid) {
+                <p class="text-sm font-light text-red-500">Descriptionn is required!</p>
+            }
+        </div>
+        <div class="flex justify-content-end gap-2">
+            <button type="submit" class="bg-[#1BE28D] font-semibold hover:bg-[#0eab68] transition-all py-2 min-w-[100px] rounded text-white text-sm">Save</button>
+            <button type="button" class="hover:bg-red-400 text-sm font-semibold hover:text-white transition-all py-2 min-w-[100px] rounded text-black" (click)="visible = false">Cancel</button>
+        </div>
+    </form>
+</p-dialog>

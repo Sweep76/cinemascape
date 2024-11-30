@@ -1,0 +1,13 @@
+<section>
+    @if (movies.length > 0) {
+        <ul class="flex gap-4 flex-wrap items-center">
+            @for (movie of movies; track movie.id) {
+                <li>
+                    <app-movie (movieReFetch)="onMovieReFetch()" [movie]="movie"/>
+                </li>
+            }
+        </ul>    
+    } @else {
+        <p class="text-center text-red-400">Unfortunately, no movies found!</p>
+    }
+</section>
