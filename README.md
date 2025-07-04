@@ -21,8 +21,8 @@ Before you can run the applications, ensure you have the following installed:
 
 1. Clone the Repository and navigate to the Backend Directory
 ```
-git clone https://github.com/keeeyaan/movie-dot.git
-cd movie-dot/backend
+git clone https://github.com/Sweep76/cinemascape
+cd cinemascape/backend
 ```
 
 2. Create a Virtual Environment
